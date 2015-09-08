@@ -85,7 +85,7 @@ namespace Pachyderm_Noise_Control
                 NW[oct] = Noise_Worst[oct];
             }
 
-            State S = new State(this.Volume, this.dimensions[0], this.dimensions[1], NB, NW, new Vector(Direction.x, Direction.y, Direction.z), new Vector(Frame[1].x, Frame[1].y, Frame[1].z), new Vector(Frame[2].x, Frame[2].y, Frame[2].z), this.lining_thickness);
+            State S = new State(this.Volume, this.dimensions[0], this.dimensions[1], NB, NW, new Vector(Direction.dx, Direction.dy, Direction.dz), new Vector(Frame[1].dx, Frame[1].dy, Frame[1].dz), new Vector(Frame[2].dx, Frame[2].dy, Frame[2].dz), this.lining_thickness);
             S.PathId = PathId;
 
             return S;
@@ -168,9 +168,9 @@ namespace Pachyderm_Noise_Control
             set
             {
                 //all vectors must be normalized.
-                Frame[0] = new Vector(value.x, value.y, value.z);
-                double dAlt = Math.Asin(value.z);
-                double dAzi = Math.Atan(value.y / value.x);
+                Frame[0] = new Vector(value.dx, value.dy, value.dz);
+                double dAlt = Math.Asin(value.dz);
+                double dAzi = Math.Atan(value.dy / value.dx);
 
                 Frame[1] = new Vector(Math.Cos(dAzi + Math.PI/2) * Math.Sin(dAlt), Math.Sin(dAzi + Math.PI/2) * Math.Sin(dAlt), 0);
                 Frame[2] = new Vector(Math.Cos(dAzi) * Math.Cos(dAlt + Math.PI/2), Math.Sin(dAzi) * Math.Sin(dAlt + Math.PI/2), Math.Sin(dAlt + Math.PI/2));

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
-using Pachyderm_Acoustic.Utilities;
 
 namespace Pachyderm_Noise_GH
 {
@@ -64,16 +62,16 @@ namespace Pachyderm_Noise_GH
             //pManager.HideParameter(0);
         }
 
-        public override bool AppendMenuItems(ToolStripDropDown menu)
-        {
-            Menu_AppendItem(menu, "Centrifugal - Backward Inclined", CB_Click, true, Centrifugal_Backward);
-            Menu_AppendItem(menu, "Centrifugal - Forward Inclined", CF_Click, true, Centrifugal_Forward);
-            Menu_AppendItem(menu, "Centrifugal - Radial", CR_Click, true, Centrifugal_Radial);
-            Menu_AppendItem(menu, "Propeller", Propeller_Click, true, Propeller);
-            Menu_AppendItem(menu, "Vaneaxial", Vaneaxial_Click, true, Vaneaxial);
-            Menu_AppendItem(menu, "Tubeaxial", Tubeaxial_Click, true, Tubeaxial);
-            return base.AppendMenuItems(menu);
-        }
+        //public override bool AppendMenuItems(ToolStripDropDown menu)
+        //{
+        //    Menu_AppendItem(menu, "Centrifugal - Backward Inclined", CB_Click, true, Centrifugal_Backward);
+        //    Menu_AppendItem(menu, "Centrifugal - Forward Inclined", CF_Click, true, Centrifugal_Forward);
+        //    Menu_AppendItem(menu, "Centrifugal - Radial", CR_Click, true, Centrifugal_Radial);
+        //    Menu_AppendItem(menu, "Propeller", Propeller_Click, true, Propeller);
+        //    Menu_AppendItem(menu, "Vaneaxial", Vaneaxial_Click, true, Vaneaxial);
+        //    Menu_AppendItem(menu, "Tubeaxial", Tubeaxial_Click, true, Tubeaxial);
+        //    return base.AppendMenuItems(menu);
+        //}
 
         public double Pressure_Drop()
         {
@@ -186,11 +184,11 @@ namespace Pachyderm_Noise_GH
             List<double> SWL = new List<double>( Pachyderm_Noise_Control.ASHRAE.Equipment.PackagedAHU_Radiated(HP));
             double[] Supply = Pachyderm_Noise_Control.ASHRAE.Equipment.Fan_Discharge(ftype, size, volume, staticpressure);
 
-            Pachyderm_Noise_Control.State supplystate = new Pachyderm_Noise_Control.State(volume, double.Epsilon, double.Epsilon, Supply, Supply, RC_PachTools.RPttoHPt(Splane.Normal), RC_PachTools.RPttoHPt(Splane.XAxis), RC_PachTools.RPttoHPt(Splane.YAxis));
-            Pachyderm_Noise_Control.State returnstate = new Pachyderm_Noise_Control.State(volume, double.Epsilon, double.Epsilon, Supply, Supply, RC_PachTools.RPttoHPt(Rplane.Normal), RC_PachTools.RPttoHPt(Rplane.XAxis), RC_PachTools.RPttoHPt(Rplane.YAxis));
+            Pachyderm_Noise_Control.State supplystate = new Pachyderm_Noise_Control.State(volume, double.Epsilon, double.Epsilon, Supply, Supply, new Hare.Geometry.Vector(Splane.Normal.X, Splane.Normal.Y, Splane.Normal.Z), new Hare.Geometry.Vector(Splane.XAxis.X, Splane.XAxis.Y, Splane.XAxis.Z), new Hare.Geometry.Vector(Splane.YAxis.X, Splane.YAxis.Y, Splane.YAxis.Z));
+            Pachyderm_Noise_Control.State returnstate = new Pachyderm_Noise_Control.State(volume, double.Epsilon, double.Epsilon, Supply, Supply, new Hare.Geometry.Vector(Rplane.Normal.X, Rplane.Normal.Y, Rplane.Normal.Z), new Hare.Geometry.Vector(Rplane.XAxis.X, Rplane.XAxis.Y, Rplane.XAxis.Z), new Hare.Geometry.Vector(Rplane.YAxis.X, Rplane.YAxis.Y, Rplane.YAxis.Z));
 
-            supplystate.PathId = Pachyderm_Noise_Control.Duct_Model.Instance.Intiate_Path(RC_PachTools.RPttoHPt(Splane.Origin), supplystate.Noise_Best, Pachyderm_Noise_Control.Duct_Model.NoiseType.Equipment);
-            returnstate.PathId = Pachyderm_Noise_Control.Duct_Model.Instance.Intiate_Path(RC_PachTools.RPttoHPt(Rplane.Origin), supplystate.Noise_Best, Pachyderm_Noise_Control.Duct_Model.NoiseType.Equipment);
+            supplystate.PathId = Pachyderm_Noise_Control.Duct_Model.Instance.Intiate_Path(new Hare.Geometry.Point(Splane.OriginX, Splane.OriginY, Splane.OriginZ), supplystate.Noise_Best, Pachyderm_Noise_Control.Duct_Model.NoiseType.Equipment);
+            returnstate.PathId = Pachyderm_Noise_Control.Duct_Model.Instance.Intiate_Path(new Hare.Geometry.Point(Rplane.OriginX, Rplane.OriginY, Rplane.OriginZ), supplystate.Noise_Best, Pachyderm_Noise_Control.Duct_Model.NoiseType.Equipment);
 
             DA.SetDataList(0, SWL);
             DA.SetData(1, supplystate);
@@ -254,19 +252,19 @@ namespace Pachyderm_Noise_GH
             get { return GH_Exposure.primary; }
         }
 
-        /// <summary>
-        /// Provides an Icon for every component that will be visible in the User Interface.
-        /// Icons need to be 24x24 pixels.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                // You can add image files to your project resources and access them like this:
-                //return Resources.IconForThisComponent;
-                return null;
-            }
-        }
+        ///// <summary>
+        ///// Provides an Icon for every component that will be visible in the User Interface.
+        ///// Icons need to be 24x24 pixels.
+        ///// </summary>
+        //protected override System.Drawing.Bitmap Icon
+        //{
+        //    get
+        //    {
+        //        // You can add image files to your project resources and access them like this:
+        //        //return Resources.IconForThisComponent;
+        //        return null;
+        //    }
+        //}
 
         /// <summary>
         /// Each component must have a unique Guid to identify it. 

@@ -54,7 +54,7 @@ namespace Pachyderm_Noise_GH
             double D = (Params.Input[1].VolatileData.AllData(true).GetEnumerator().Current as Grasshopper.Kernel.Types.GH_Number).Value;
             double L = (Params.Input[2].VolatileData.AllData(true).GetEnumerator().Current as Grasshopper.Kernel.Types.GH_Number).Value;
             double Lng = (Params.Input[3].VolatileData.AllData(true).GetEnumerator().Current as Grasshopper.Kernel.Types.GH_Number).Value;
-            double dz = S.Direction.z * L;
+            double dz = S.Direction.dz * L;
             double density_in_duct = .075;
             double Area = Math.PI * D * D / 4;
             double Velocity = S.Volume / (Area);
@@ -122,18 +122,18 @@ namespace Pachyderm_Noise_GH
             DMM.Display_Needed = true;
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
+        ///// <summary>
+        ///// Provides an Icon for the component.
+        ///// </summary>
+        //protected override System.Drawing.Bitmap Icon
+        //{
+        //    get
+        //    {
+        //        //You can add image files to your project resources and access them like this:
+        //        // return Resources.IconForThisComponent;
+        //        return null;
+        //    }
+        //}
 
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFrameworks>net7.0;net48</TargetFrameworks>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Configurations>Debug;Debug32;Debug64;Release</Configurations>
@@ -10,6 +10,11 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Ducts - Junctions_.cs" />
+    <Compile Remove="Duct_Model_.cs" />
+    <Compile Remove="Duct_Model__.cs" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
@@ -22,4 +27,7 @@
       <HintPath>..\..\Hare\bin\Release\net7.0\Hare.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="Copy /y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;%25appdata%25\Grasshopper\Libraries\$(ProjectName).dll&quot;" />
+  </Target>
 </Project>

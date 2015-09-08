@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 
@@ -78,7 +76,7 @@ namespace Pachyderm_Noise_GH
 
             if (!DA.GetData(2, ref H)) H = S.dimensions[1];
             Grasshopper.Kernel.Parameters.Param_Number paramH = (Params.Input[2] as Grasshopper.Kernel.Parameters.Param_Number);
-            if (paramW != null) paramH.NickName = "H: " + Math.Round(H) + " in.";
+            if (paramH != null) paramH.NickName = "H: " + Math.Round(H) + " in.";
 
             if (!DA.GetData(3, ref R)) R = 0;
             Grasshopper.Kernel.Parameters.Param_Number paramR = (Params.Input[3] as Grasshopper.Kernel.Parameters.Param_Number);
@@ -90,25 +88,32 @@ namespace Pachyderm_Noise_GH
 
             DA.GetData(5, ref VL);
             DA.GetData(6, ref VC);
-            DA.GetData(7, ref dir);
+
+            if (!DA.GetData(7, ref dir))
+            {
+                Hare.Geometry.Vector sDir = S.Direction;
+                dir = new Vector3d(sDir.dx, sDir.dy, sDir.dz);
+            }
+
+            if (dir.IsZero) dir = Vector3d.XAxis;
             double[] atten, regen;
-            DA.SetData(0, Pachyderm_Noise_Control.ASHRAE.Elbow.Rectangular_Elbow(S, Pachyderm_Acoustic.Utilities.RC_PachTools.RPttoHPt(dir), H, W, Lng, R, out atten, out regen, VL, VC));
+            DA.SetData(0, Pachyderm_Noise_Control.ASHRAE.Elbow.Rectangular_Elbow(S, new Hare.Geometry.Vector(dir.X, dir.Y, dir.Z), H, W, Lng, R, out atten, out regen, VL, VC));
             this.Message = "F      63  125  250  500   1k   2k   4k   8k" + "\n" + "Atten: " + Math.Round(atten[0], 2) + " " + Math.Round(atten[1], 2) + " " + Math.Round(atten[2], 2) + " " + Math.Round(atten[3], 2) + " " + Math.Round(atten[4], 2) + " " + Math.Round(atten[5], 2) + " " + Math.Round(atten[6], 2) + " " + Math.Round(atten[7], 2) + " " + "\n" + "Regen: " + Math.Round(regen[0], 2) + " " + Math.Round(regen[1], 2) + " " + Math.Round(regen[2], 2) + " " + Math.Round(regen[3], 2) + " " + Math.Round(regen[4], 2) + " " + Math.Round(regen[5], 2) + " " + Math.Round(regen[6], 2) + " " + Math.Round(regen[7], 2) + " ";
             DMM.Display_Needed = true;
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
+        ///// <summary>
+        ///// Provides an Icon for the component.
+        ///// </summary>
+        //protected override System.Drawing.Bitmap Icon
+        //{
+        //    get
+        //    {
+        //        //You can add image files to your project resources and access them like this:
+        //        // return Resources.IconForThisComponent;
+        //        return null;
+        //    }
+        //}
 
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.

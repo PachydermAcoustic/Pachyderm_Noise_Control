@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFrameworks>net7.0;net48</TargetFrameworks>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug32</Configuration>
     <OutputType>Library</OutputType>
     <RootNamespace>Pachyderm_Noise_GH</RootNamespace>
     <AssemblyName>Pachyderm_Noise_GH</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWindowsForms>true</UseWindowsForms>
+    <UseWindowsForms>false</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <Configurations>Debug;Debug32;Debug64;Release</Configurations>
   </PropertyGroup>
@@ -32,6 +32,15 @@
     <Reference Include="Grasshopper">
       <HintPath>..\..\..\..\..\..\..\Program Files\Rhino 8\Plug-ins\Grasshopper\Grasshopper.dll</HintPath>
     </Reference>
+    <Reference Include="Hare">
+      <HintPath>..\..\Hare\bin\Release\net7.0\Hare.dll</HintPath>
+    </Reference>
+    <Reference Include="Pachyderm_Acoustic">
+      <HintPath>..\..\PachydermAcoustic_Rhinoceros\bin\Release\net48\Pachyderm_Acoustic.rhp</HintPath>
+    </Reference>
+    <Reference Include="Pachyderm_Acoustic_Universal">
+      <HintPath>..\..\PachydermAcoustic_Core\Pachyderm_Acoustic_Universal\Pachyderm_Acoustic_Universal\bin\Release\net7.0\Pachyderm_Acoustic_Universal.dll</HintPath>
+    </Reference>
     <Reference Include="RhinoCommon">
       <HintPath>..\..\..\..\..\..\..\Program Files\Rhino 8\System\RhinoCommon.dll</HintPath>
     </Reference>
@@ -39,13 +48,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Pachyderm_Noise_Control\Pachyderm_Noise_Control.csproj" />
   </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-Erase "$(TargetPath)"
-copy /Y "$(TargetDir)$(ProjectName).gha" "%25userprofile%25\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
-copy /Y "$(TargetDir)Pachyderm_Noise_Control.dll" "%25userprofile%25\AppData\Roaming\Grasshopper\Libraries\Pachyderm_Noise_Control.dll"
-</PostBuildEvent>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug32|AnyCPU' ">
     <StartArguments>
     </StartArguments>
@@ -54,6 +57,7 @@ copy /Y "$(TargetDir)Pachyderm_Noise_Control.dll" "%25userprofile%25\AppData\Roa
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
     <StartProgram>c:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
@@ -61,4 +65,7 @@ copy /Y "$(TargetDir)Pachyderm_Noise_Control.dll" "%25userprofile%25\AppData\Roa
     </StartArguments>
     <StartAction>Program</StartAction>
   </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="Copy &quot;$(TargetPath)&quot; &quot;$(TargetDir)$(ProjectName).gha&quot;&#xD;&#xA;Erase &quot;$(TargetPath)&quot;&#xD;&#xA;Copy /y &quot;$(TargetDir)$(ProjectName).gha&quot; &quot;%25appdata%25\Grasshopper\Libraries\$(ProjectName).gha&quot;" />
+  </Target>
 </Project>

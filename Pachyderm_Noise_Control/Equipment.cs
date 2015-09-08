@@ -205,6 +205,17 @@ namespace Pachyderm_Noise_Control
 
                 double basis = wattage_term.Interpolate(Wattage_MW) + speed_term.Interpolate(speed_rpm);
 
+                // Adjustments for each octave band (example values, should be based on empirical data)
+                double[] SWL = new double[8];
+                SWL[0] = basis - 6;
+                SWL[1] = basis - 8;
+                SWL[2] = basis - 10;
+                SWL[3] = basis - 11;
+                SWL[4] = basis - 13;
+                SWL[5] = basis - 12;
+                SWL[6] = basis - 18;
+                SWL[7] = basis - 25;
+
                 return SWL;
             }
 

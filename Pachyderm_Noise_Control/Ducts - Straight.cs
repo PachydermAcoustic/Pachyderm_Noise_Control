@@ -7,6 +7,12 @@ namespace Pachyderm_Noise_Control
 {
     namespace ASHRAE
     {
+        public static class Breakout
+        {
+            public static double[] Breakout_Rect = new double[8] { 19, 22, 25, 28, 31, 36, 41, 45 };
+            public static double[] Breakout_Round_Longseam = new double[8] { 50, 46, 26, 26, 24, 22, 25, 25 };
+            public static double[] Breakout_Round_Spiral = new double[8] { 51, 51, 36, 32, 32, 26, 29, 29 };
+        }
         public static class Round_Duct
         {
             private static Dictionary<int, MathNet.Numerics.Interpolation.IInterpolation> DP_transition_R_SQ2R;
@@ -294,7 +300,7 @@ namespace Pachyderm_Noise_Control
                 int ptct = (int)Math.Ceiling(length * 0.3048 / Duct_Model.Instance.delta_D);
                 double delta = length * 0.3048 / ptct;
                 for (int i = 1; i < ptct + 1; i++) Pts.Add(S.Location + S.Direction * delta * i);
-                Duct_Model.Instance.AddComponent(S.ModelNode, atten, Pts.ToArray(), ref S_new);
+                Duct_Model.Instance.AddComponent(S.ModelNode, atten, Pts.ToArray(),diameter, 0, ref S_new);
 
                 return S_new;
             }
@@ -584,7 +590,7 @@ namespace Pachyderm_Noise_Control
                 int ptct = (int)Math.Ceiling(length * 0.3048 / Duct_Model.Instance.delta_D);
                 double delta = length * 0.3048 / ptct;
                 for (int i = 1; i < ptct + 1; i++) Pts.Add(S.Location + S.Direction * delta * i);
-                Duct_Model.Instance.AddComponent(S.ModelNode, atten, Pts.ToArray(), ref S_new);
+                Duct_Model.Instance.AddComponent(S.ModelNode, atten, Pts.ToArray(), horizontal_inches, vertical_inches, ref S_new);
 
                 return S_new;
             }

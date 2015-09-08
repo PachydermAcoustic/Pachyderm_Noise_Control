@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Pachyderm_Acoustic.Utilities;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using System.Linq;
@@ -91,7 +90,7 @@ namespace Pachyderm_Noise_GH
 
             for (int i = 0; i < Dir.Count; i++)
             {
-                dir[i] = Pachyderm_Acoustic.Utilities.RC_PachTools.RPttoHPt(Dir[i]);
+                dir[i] = new Hare.Geometry.Vector(Dir[i].X, Dir[i].Y, Dir[i].Z);
                 dir[i].Normalize();
                 angles.Add(Hare.Geometry.Hare_math.Dot(S.Frame[2] , dir[i]));
                 if (angles[i] > 0.6)
@@ -139,18 +138,18 @@ namespace Pachyderm_Noise_GH
             DMM.Display_Needed = true;
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
+        ///// <summary>
+        ///// Provides an Icon for the component.
+        ///// </summary>
+        //protected override System.Drawing.Bitmap Icon
+        //{
+        //    get
+        //    {
+        //        //You can add image files to your project resources and access them like this:
+        //        // return Resources.IconForThisComponent;
+        //        return null;
+        //    }
+        //}
 
         protected override void AfterSolveInstance()
         {

@@ -19,14 +19,14 @@ namespace Pachyderm_Noise_GH
                 return "PachNoiseGH";
             }
         }
-        public override Bitmap Icon
-        {
-            get
-            {
-                //Return a 24x24 pixel bitmap to represent this GHA library.
-                return null;
-            }
-        }
+        //public override Bitmap Icon
+        //{
+        //    get
+        //    {
+        //        //Return a 24x24 pixel bitmap to represent this GHA library.
+        //        return null;
+        //    }
+        //}
         public override string Description
         {
             get

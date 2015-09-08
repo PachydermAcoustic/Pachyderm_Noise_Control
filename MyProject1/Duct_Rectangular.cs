@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using Grasshopper.Kernel;
 using Pachyderm_Noise_Control;
-using Rhino.Geometry;
 
 namespace Pachyderm_Noise_GH
 {
@@ -51,29 +48,29 @@ namespace Pachyderm_Noise_GH
             pManager.AddGenericParameter("State out", "OUT", "Connect to the next component here...", GH_ParamAccess.item);
         }
 
-        protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
-        {
-            Menu_AppendItem(menu, "Free End Reflection", FreeER_Click, true, Free_ER);
-            Menu_AppendItem(menu, "Flush End Reflection", WallER_Click, true, Wall_ER);
-            Menu_AppendItem(menu, "No End Reflection", NoER_Click, true, Free_ER && Wall_ER);
-            base.AppendAdditionalComponentMenuItems(menu);
-        }
+        //protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
+        //{
+        //    Menu_AppendItem(menu, "Free End Reflection", FreeER_Click, true, Free_ER);
+        //    Menu_AppendItem(menu, "Flush End Reflection", WallER_Click, true, Wall_ER);
+        //    Menu_AppendItem(menu, "No End Reflection", NoER_Click, true, Free_ER && Wall_ER);
+        //    base.AppendAdditionalComponentMenuItems(menu);
+        //}
 
-        private void FreeER_Click(object sender, EventArgs e)
-        {
-            Free_ER = true;
-            Wall_ER = false;
-        }
-        private void WallER_Click(object sender, EventArgs e)
-        {
-            Free_ER = false;
-            Wall_ER = true;
-        }
-        private void NoER_Click(object sender, EventArgs e)
-        {
-            Free_ER = false;
-            Wall_ER = false;
-        }
+        //private void FreeER_Click(object sender, EventArgs e)
+        //{
+        //    Free_ER = true;
+        //    Wall_ER = false;
+        //}
+        //private void WallER_Click(object sender, EventArgs e)
+        //{
+        //    Free_ER = false;
+        //    Wall_ER = true;
+        //}
+        //private void NoER_Click(object sender, EventArgs e)
+        //{
+        //    Free_ER = false;
+        //    Wall_ER = false;
+        //}
 
         public double Pressure_Drop()
         {
@@ -82,7 +79,7 @@ namespace Pachyderm_Noise_GH
             double H = (Params.Input[2].VolatileData.AllData(true).GetEnumerator().Current as Grasshopper.Kernel.Types.GH_Number).Value;
             double L = (Params.Input[3].VolatileData.AllData(true).GetEnumerator().Current as Grasshopper.Kernel.Types.GH_Number).Value;
             double Lng = (Params.Input[4].VolatileData.AllData(true).GetEnumerator().Current as Grasshopper.Kernel.Types.GH_Number).Value;
-            double dz = S.Direction.z * L;
+            double dz = S.Direction.dz * L;
             double density_in_duct = .075;
             double Velocity = S.Volume / (W * H);
             double Velocity_Pressure = 0.602 * Velocity * Velocity;
@@ -101,7 +98,7 @@ namespace Pachyderm_Noise_GH
             else if (Reynolds < 10000)
             {
                 //Transition flow (from 2320 - 4000
-                //Turbulent Flow - Coleman White - Goudar-Sonnad eequation
+                //Turbulent Flow - Coleman White - Goudar-Sonnad equation
                 double a = 2 / Math.Log(10);
                 double b = (roughness / Dh) / 3.7;
                 double d = Math.Log(10) * Reynolds / 5.02;
@@ -122,7 +119,7 @@ namespace Pachyderm_Noise_GH
 
         }
 
-        bool Free_ER = false, Wall_ER = false;
+        bool Free_ER = true, Wall_ER = false;
 
         /// <summary>
         /// This is the method that actually does the work.
@@ -181,18 +178,18 @@ namespace Pachyderm_Noise_GH
             DMM.Display_Needed = true;
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
+        ///// <summary>
+        ///// Provides an Icon for the component.
+        ///// </summary>
+        //protected override System.Drawing.Bitmap Icon
+        //{
+        //    get
+        //    {
+        //        //You can add image files to your project resources and access them like this:
+        //        // return Resources.IconForThisComponent;
+        //        return null;
+        //    }
+        //}
 
         protected override void BeforeSolveInstance()
         {

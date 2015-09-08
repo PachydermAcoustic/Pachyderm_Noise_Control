@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Linq;
 using Grasshopper.Kernel;
 using Rhino.Geometry;
 using Pachyderm_Noise_Control;
-using Pachyderm_Acoustic.Utilities;
 
 namespace Pachyderm_Noise_GH
 {
@@ -109,17 +106,17 @@ namespace Pachyderm_Noise_GH
 
             if (Discharge != null && Discharge.Count == 8)
             {
-                supplystate = new State(volume, double.Epsilon, double.Epsilon, Discharge.ToArray(), Discharge.ToArray(), RC_PachTools.RPttoHPt(SupplyFrame.Normal), RC_PachTools.RPttoHPt(SupplyFrame.XAxis), RC_PachTools.RPttoHPt(SupplyFrame.YAxis));
+                supplystate = new State(volume, double.Epsilon, double.Epsilon, Discharge.ToArray(), Discharge.ToArray(), new Hare.Geometry.Vector(SupplyFrame.Normal.X, SupplyFrame.Normal.Y, SupplyFrame.Normal.Z), new Hare.Geometry.Vector(SupplyFrame.XAxis.X, SupplyFrame.XAxis.Y, SupplyFrame.XAxis.Z), new Hare.Geometry.Vector(SupplyFrame.YAxis.X, SupplyFrame.YAxis.Y, SupplyFrame.YAxis.Z));
                 DA.SetData(1, supplystate);
             }
             if (Intake != null && Intake.Count == 8)
             {
-                returnstate = new State(volume, double.Epsilon, double.Epsilon, Intake.ToArray(), Intake.ToArray(), RC_PachTools.RPttoHPt(ReturnFrame.Normal), RC_PachTools.RPttoHPt(ReturnFrame.XAxis), RC_PachTools.RPttoHPt(ReturnFrame.YAxis));
+                returnstate = new State(volume, double.Epsilon, double.Epsilon, Intake.ToArray(), Intake.ToArray(), new Hare.Geometry.Vector(ReturnFrame.Normal.X, ReturnFrame.Normal.Y, ReturnFrame.Normal.Z), new Hare.Geometry.Vector(ReturnFrame.XAxis.X, ReturnFrame.XAxis.Y, ReturnFrame.XAxis.Z), new Hare.Geometry.Vector(ReturnFrame.YAxis.X, ReturnFrame.YAxis.Y, ReturnFrame.YAxis.Z));
                 DA.SetData(2, returnstate);
             }
 
-            supplystate.PathId = Duct_Model.Instance.Intiate_Path(RC_PachTools.RPttoHPt(SupplyFrame.Origin), supplystate.Noise_Best, Duct_Model.NoiseType.Equipment);
-            returnstate.PathId = Duct_Model.Instance.Intiate_Path(RC_PachTools.RPttoHPt(ReturnFrame.Origin), supplystate.Noise_Best, Duct_Model.NoiseType.Equipment);
+            supplystate.PathId = Duct_Model.Instance.Intiate_Path(new Hare.Geometry.Point(SupplyFrame.OriginX, SupplyFrame.OriginY, SupplyFrame.OriginZ), supplystate.Noise_Best, Duct_Model.NoiseType.Equipment);
+            returnstate.PathId = Duct_Model.Instance.Intiate_Path(new Hare.Geometry.Point(ReturnFrame.OriginX, ReturnFrame.OriginY, ReturnFrame.OriginZ), supplystate.Noise_Best, Duct_Model.NoiseType.Equipment);
         }
 
         /// <summary>
@@ -143,19 +140,19 @@ namespace Pachyderm_Noise_GH
             Rhino.RhinoApp.WriteLine("UserEquipment After");
         }
 
-        /// <summary>
-        /// Provides an Icon for every component that will be visible in the User Interface.
-        /// Icons need to be 24x24 pixels.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                // You can add image files to your project resources and access them like this:
-                //return Resources.IconForThisComponent;
-                return null;
-            }
-        }
+        ///// <summary>
+        ///// Provides an Icon for every component that will be visible in the User Interface.
+        ///// Icons need to be 24x24 pixels.
+        ///// </summary>
+        //protected override System.Drawing.Bitmap Icon
+        //{
+        //    get
+        //    {
+        //        // You can add image files to your project resources and access them like this:
+        //        //return Resources.IconForThisComponent;
+        //        return null;
+        //    }
+        //}
 
         /// <summary>
         /// Each component must have a unique Guid to identify it. 

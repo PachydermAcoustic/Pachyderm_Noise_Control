@@ -490,7 +490,7 @@ namespace Pachyderm_Noise_Control
                 dir.Normalize();
                 R.Direction = dir;
 
-                if (Math.Abs(dir.x) + Math.Abs(dir.y) > 0.01)
+                if (Math.Abs(dir.dx) + Math.Abs(dir.dy) > 0.01)
                 {
                     if (Hare.Geometry.Hare_math.Dot(S.Direction, R.Direction) > 0.95)
                     {
@@ -500,27 +500,27 @@ namespace Pachyderm_Noise_Control
                         {
                             Pts.Add(S.Location + R.Direction * i);
                         }
-                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), ref R);
+                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), horizontal_inches_out, vertical_inches_out, ref R);
                     }
                     else if (Elbow_Radius > 0)
                     {
                         List<Hare.Geometry.Point> Pts = new List<Hare.Geometry.Point>();
                         double radiusCtr = Elbow_Radius + horizontal_inches_out / 2;
                         double dtheta = Duct_Model.Instance.delta_D / (radiusCtr * 0.0254);
-                        Hare.Geometry.Vector Perp = Hare.Geometry.Hare_math.Cross(S.Direction, new Hare.Geometry.Point(0, 0, 1));
+                        Hare.Geometry.Vector Perp = Hare.Geometry.Hare_math.Cross(S.Direction, new Hare.Geometry.Vector(0, 0, 1));
                         if (Hare.Geometry.Hare_math.Dot(dir, Perp) > 0)
                         {
                             Perp *= -1;
                         }
                         Hare.Geometry.Point center = S.Location - Perp * (radiusCtr) * 0.0254;
-                        double stheta = Math.Atan2(S.Direction.y, S.Direction.x);
-                        double etheta = Math.Atan2(R.Direction.y, R.Direction.x);
+                        double stheta = Math.Atan2(S.Direction.dy, S.Direction.dx);
+                        double etheta = Math.Atan2(R.Direction.dy, R.Direction.dx);
                         double diff = (etheta - stheta);
                         //if (diff > Math.PI) diff -= Math.PI;
                         //else if (diff < -Math.PI) diff += Math.PI;
                         int diffdir = diff > 0 ? -1 : 1;
                         int cttheta = (int)(diffdir * Math.Ceiling(1 + Math.Abs(diff) / dtheta));
-                        double dz = dir.z * Duct_Model.Instance.delta_D;
+                        double dz = dir.dz * Duct_Model.Instance.delta_D;
                         for (int i = diffdir; i != cttheta - diffdir; i += diffdir)
                         {
                             Hare.Geometry.Vector v = new Hare.Geometry.Vector(Math.Sin(i * dtheta + etheta - diffdir * Math.PI/2), Math.Cos(i * dtheta + etheta - diffdir * Math.PI/2), dz * i);//(Math.Cos(i * dtheta + etheta - diffdir * Math.PI/2), Math.Sin(i * dtheta + etheta - diffdir * Math.PI/2), dz * i);
@@ -540,7 +540,7 @@ namespace Pachyderm_Noise_Control
                         //dtheta = etheta / cttheta;
                         //double dz = dir.z * Duct_Model.Instance.delta_D;
                         //for(int i = 1; i < cttheta + 1; i++) Pts.Add(center + radiusCtr * new Hare.Geometry.Point(Math.Cos(i*dtheta +stheta), Math.Sin(i * dtheta + stheta), dz * i));
-                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), ref R);
+                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), horizontal_inches_out, vertical_inches_out, ref R);
                     }
                     else
                     {
@@ -552,11 +552,11 @@ namespace Pachyderm_Noise_Control
                         double dD1 = D1 / D1ct;
                         double dD2 = D2 / D2ct;
                         for (int i = 1; i < D1ct + 1; i++) Pts.Add(S.Location + dD1 * S.Direction * i);
-                        Hare.Geometry.Vector Perp = Hare.Geometry.Hare_math.Cross(S.Direction, new Hare.Geometry.Point(0, 0, 1));
+                        Hare.Geometry.Vector Perp = Hare.Geometry.Hare_math.Cross(S.Direction, new Hare.Geometry.Vector(0, 0, 1));
                         Perp *= Hare.Geometry.Hare_math.Dot(dir, Perp) > 0 ? 1 : -1;
                         Hare.Geometry.Point pt = Pts[Pts.Count - 1];
                         for (int i = 1; i < D2ct + 1; i++) Pts.Add(pt + dD2 * dir * i);
-                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), ref R);
+                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), horizontal_inches_out, vertical_inches_out, ref R);
                     }
                 }
                 else
@@ -569,27 +569,27 @@ namespace Pachyderm_Noise_Control
                         {
                             Pts.Add(S.Location + R.Direction * i);
                         }
-                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), ref R);
+                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), horizontal_inches_out, vertical_inches_out, ref R);
                     }
                     else if (Elbow_Radius > 0)
                     {
                         List<Hare.Geometry.Point> Pts = new List<Hare.Geometry.Point>();
                         double radiusCtr = Elbow_Radius + horizontal_inches_out / 2;
                         double dtheta = Duct_Model.Instance.delta_D / (radiusCtr * 0.0254);
-                        Hare.Geometry.Vector Perp = Hare.Geometry.Hare_math.Cross(S.Direction, new Hare.Geometry.Point(0, 0, 1));
+                        Hare.Geometry.Vector Perp = Hare.Geometry.Hare_math.Cross(S.Direction, new Hare.Geometry.Vector(0, 0, 1));
                         if (Hare.Geometry.Hare_math.Dot(dir, Perp) > 0)
                         {
                             Perp *= -1;
                         }
                         Hare.Geometry.Point center = S.Location - Perp * (radiusCtr) * 0.0254;
-                        double stheta = Math.Atan2(S.Direction.y, S.Direction.x);
-                        double etheta = Math.Atan2(R.Direction.y, R.Direction.x);
+                        double stheta = Math.Atan2(S.Direction.dy, S.Direction.dx);
+                        double etheta = Math.Atan2(R.Direction.dy, R.Direction.dx);
                         double diff = (etheta - stheta);
                         if (diff > Math.PI) diff -= Math.PI;
                         else if (diff < -Math.PI) diff += Math.PI;
                         int diffdir = diff > 0 ? 1 : -1;
                         int cttheta = (int)(diffdir * Math.Ceiling(1 + Math.Abs(diff) / dtheta));
-                        double dz = dir.z * Duct_Model.Instance.delta_D;
+                        double dz = dir.dz * Duct_Model.Instance.delta_D;
                         for (int i = diffdir; i != cttheta; i += diffdir)
                         {
                             Hare.Geometry.Vector v = new Hare.Geometry.Vector(Math.Cos(i * dtheta + stheta), Math.Sin(i * dtheta + stheta), dz * i);
@@ -635,7 +635,7 @@ namespace Pachyderm_Noise_Control
                         //    vect.Normalize();
                         //    Pts.Add(center + radiusCtr * vect);
                         //}
-                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), ref R);
+                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), horizontal_inches_out, vertical_inches_out, ref R);
                     }
                     else
                     {
@@ -647,11 +647,11 @@ namespace Pachyderm_Noise_Control
                         double dD1 = D1 / D1ct;
                         double dD2 = D2 / D2ct;
                         for (int i = 1; i < D1ct + 1; i++) Pts.Add(S.Location + dD1 * S.Direction * i);
-                        Hare.Geometry.Vector Perp = Hare.Geometry.Hare_math.Cross(S.Direction, new Hare.Geometry.Point(0, 0, 1));
+                        Hare.Geometry.Vector Perp = Hare.Geometry.Hare_math.Cross(S.Direction, new Hare.Geometry.Vector(0, 0, 1));
                         Perp *= Hare.Geometry.Hare_math.Dot(dir, Perp) > 0 ? 1 : -1;
                         Hare.Geometry.Point pt = Pts[Pts.Count - 1];
                         for (int i = 1; i < D2ct + 1; i++) Pts.Add(pt + dD2 * dir * i);
-                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), ref R);
+                        Duct_Model.Instance.AddComponent(S.ModelNode, atten, Regen, Duct_Model.NoiseType.Aerodynamic, Pts.ToArray(), horizontal_inches_out, vertical_inches_out, ref R);
                     }
                 }
                 return R;

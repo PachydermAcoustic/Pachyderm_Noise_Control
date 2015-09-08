@@ -30,7 +30,7 @@ namespace Pachyderm_Noise_Control
                 //    Co = 1.0
 
 
-                //                    SR2 - 3 Plain Diffuser (Two Sides Parallel), Free Discharge
+                //    SR2 - 3 Plain Diffuser (Two Sides Parallel), Free Discharge
                 //A1 / Ao : 1, 2, 4, 6
                 //Re / 1000: 50, 100, 200, 400, 2000
                 //θ : 4 8 10 14 20 30 45 60 90 120
@@ -119,9 +119,9 @@ namespace Pachyderm_Noise_Control
                 };
                     //SR2 - 6 Pyramidal Diffuser, with Wall
                     //L / Dh 0.5 1.0 2.0 3.0 4.0 5.0 6.0 8.0 10.0 12.0 14.0
-                PyrDiff_inwall_C0 = new double[] { 0.49, 0.40, 0.30, 0.26, 0.23, 0.21, 0.19, 0.17, 0.16, 0.15, 0.14 };
-//θ 26 19 13 11 9 8 7 6 6 5 5
-//θ is the optimum angle.
+                    PyrDiff_inwall_C0 = new double[] { 0.49, 0.40, 0.30, 0.26, 0.23, 0.21, 0.19, 0.17, 0.16, 0.15, 0.14 };
+                    //θ 26 19 13 11 9 8 7 6 6 5 5
+                    //θ is the optimum angle.
              }
 
 

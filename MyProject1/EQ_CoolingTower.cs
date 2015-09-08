@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using Grasshopper.Kernel;
 using System.Linq;
-using Rhino;
-using Rhino.Geometry;
 
 namespace Pachyderm_Noise_GH
 {
@@ -38,12 +34,12 @@ namespace Pachyderm_Noise_GH
             pManager.AddNumberParameter("Radiated_Sound_Power_Level", "SWL", "The radated sound power of the Chiller", GH_ParamAccess.list);
         }
 
-        public override bool AppendMenuItems(ToolStripDropDown menu)
-        {
-            Menu_AppendItem(menu, "Centrifugal", Centrifugal_Click, true, Centrifugal);
-            Menu_AppendItem(menu, "Commpressor Type", Propeller_Click, true, Propeller);
-            return base.AppendMenuItems(menu);
-        }
+        //public override bool AppendMenuItems(ToolStripDropDown menu)
+        //{
+        //    Menu_AppendItem(menu, "Centrifugal", Centrifugal_Click, true, Centrifugal);
+        //    Menu_AppendItem(menu, "Commpressor Type", Propeller_Click, true, Propeller);
+        //    return base.AppendMenuItems(menu);
+        //}
 
         bool Centrifugal = true;
         bool Propeller = false;
@@ -83,18 +79,18 @@ namespace Pachyderm_Noise_GH
             DA.SetData(0, SWL.ToList());
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
+        ///// <summary>
+        ///// Provides an Icon for the component.
+        ///// </summary>
+        //protected override System.Drawing.Bitmap Icon
+        //{
+        //    get
+        //    {
+        //        //You can add image files to your project resources and access them like this:
+        //        // return Resources.IconForThisComponent;
+        //        return null;
+        //    }
+        //}
 
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using Grasshopper.Kernel;
 using System.Linq;
-using Rhino.Geometry;
 
 namespace Pachyderm_Noise_GH
 {
@@ -38,14 +35,14 @@ namespace Pachyderm_Noise_GH
             pManager.AddNumberParameter("Radiated_Sound_Power_Level", "SWL", "The radated sound power of the Chiller", GH_ParamAccess.list);
         }
 
-        public override bool AppendMenuItems(ToolStripDropDown menu)
-        {
-            Menu_AppendItem(menu, "Screw Type", Screw_Click, true, Screw);
-            Menu_AppendItem(menu, "Commpressor Type", Compressor_Click, true, Compressor);
-            Menu_AppendItem(menu, "Internally-geared Type", IG_Click, true, Internallygeared);
-            Menu_AppendItem(menu, "Direct Drive Type", DD_Click, true, DirectDrive);
-            return base.AppendMenuItems(menu);
-        }
+        //public override bool AppendMenuItems(ToolStripDropDown menu)
+        //{
+        //    Menu_AppendItem(menu, "Screw Type", Screw_Click, true, Screw);
+        //    Menu_AppendItem(menu, "Commpressor Type", Compressor_Click, true, Compressor);
+        //    Menu_AppendItem(menu, "Internally-geared Type", IG_Click, true, Internallygeared);
+        //    Menu_AppendItem(menu, "Direct Drive Type", DD_Click, true, DirectDrive);
+        //    return base.AppendMenuItems(menu);
+        //}
 
         bool Screw = true;
         bool Compressor = false;
@@ -116,18 +113,18 @@ namespace Pachyderm_Noise_GH
             DA.SetData(0, SWL.ToList());
         }
 
-        /// <summary>
-        /// Provides an Icon for the component.
-        /// </summary>
-        protected override System.Drawing.Bitmap Icon
-        {
-            get
-            {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
-            }
-        }
+        ///// <summary>
+        ///// Provides an Icon for the component.
+        ///// </summary>
+        //protected override System.Drawing.Bitmap Icon
+        //{
+        //    get
+        //    {
+        //        //You can add image files to your project resources and access them like this:
+        //        // return Resources.IconForThisComponent;
+        //        return null;
+        //    }
+        //}
 
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
