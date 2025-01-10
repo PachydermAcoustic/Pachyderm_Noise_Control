@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug32</Configuration>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Pachyderm_Noise_GH</RootNamespace>
+    <AssemblyName>Pachyderm_Noise_GH</AssemblyName>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <Configurations>Debug;Debug32;Debug64;Release</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug32|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GH_IO">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Rhino 8\Plug-ins\Grasshopper\GH_IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Grasshopper">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Rhino 8\Plug-ins\Grasshopper\Grasshopper.dll</HintPath>
+    </Reference>
+    <Reference Include="RhinoCommon">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Rhino 8\System\RhinoCommon.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pachyderm_Noise_Control\Pachyderm_Noise_Control.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+Erase "$(TargetPath)"
+copy /Y "$(TargetDir)$(ProjectName).gha" "%25userprofile%25\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"
+copy /Y "$(TargetDir)Pachyderm_Noise_Control.dll" "%25userprofile%25\AppData\Roaming\Grasshopper\Libraries\Pachyderm_Noise_Control.dll"
+</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug32|AnyCPU' ">
+    <StartArguments>
+    </StartArguments>
+    <StartAction>Program</StartAction>
+    <StartProgram>c:\Program Files (x86)\Rhinoceros 5\System\Rhino4.exe</StartProgram>
+  </PropertyGroup>
+  <PropertyGroup>
+    <FallbackCulture>en-US</FallbackCulture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug64|AnyCPU'">
+    <StartProgram>c:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
+    <StartArguments>
+    </StartArguments>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+</Project>

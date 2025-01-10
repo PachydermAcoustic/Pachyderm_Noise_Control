@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configurations>Debug;Debug32;Debug64;Release</Configurations>
+    <AssemblyTitle>Pachyderm_Noise_Control</AssemblyTitle>
+    <Product>Pachyderm_Noise_Control</Product>
+    <Copyright>Copyright ©  2015</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+    <PackageReference Include="TaskParallelLibrary" Version="1.0.2856.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Hare">
+      <HintPath>..\..\Hare\bin\Release\net7.0\Hare.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
