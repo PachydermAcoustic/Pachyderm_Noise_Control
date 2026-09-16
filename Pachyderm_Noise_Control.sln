@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37628.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pachyderm_Noise_Control", "Pachyderm_Noise_Control\Pachyderm_Noise_Control.csproj", "{4789F00E-54F0-4B43-8DA6-CA2617333827}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pachyderm_NoiseGH", "MyProject1\Pachyderm_NoiseGH.csproj", "{02488770-ACF1-46F9-80D4-66E7AB962B67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pachyderm_NoiseGH", "Pachyderm_NoiseGH\Pachyderm_NoiseGH.csproj", "{5029678F-D0F6-F8E1-7050-3EEDB30FB1EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,16 +23,19 @@ Global
 		{4789F00E-54F0-4B43-8DA6-CA2617333827}.Debug64|Any CPU.Build.0 = Debug|Any CPU
 		{4789F00E-54F0-4B43-8DA6-CA2617333827}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4789F00E-54F0-4B43-8DA6-CA2617333827}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02488770-ACF1-46F9-80D4-66E7AB962B67}.Debug|Any CPU.ActiveCfg = Debug64|Any CPU
-		{02488770-ACF1-46F9-80D4-66E7AB962B67}.Debug|Any CPU.Build.0 = Debug64|Any CPU
-		{02488770-ACF1-46F9-80D4-66E7AB962B67}.Debug32|Any CPU.ActiveCfg = Debug32|Any CPU
-		{02488770-ACF1-46F9-80D4-66E7AB962B67}.Debug32|Any CPU.Build.0 = Debug32|Any CPU
-		{02488770-ACF1-46F9-80D4-66E7AB962B67}.Debug64|Any CPU.ActiveCfg = Debug64|Any CPU
-		{02488770-ACF1-46F9-80D4-66E7AB962B67}.Debug64|Any CPU.Build.0 = Debug64|Any CPU
-		{02488770-ACF1-46F9-80D4-66E7AB962B67}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02488770-ACF1-46F9-80D4-66E7AB962B67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5029678F-D0F6-F8E1-7050-3EEDB30FB1EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5029678F-D0F6-F8E1-7050-3EEDB30FB1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5029678F-D0F6-F8E1-7050-3EEDB30FB1EA}.Debug32|Any CPU.ActiveCfg = Debug32|Any CPU
+		{5029678F-D0F6-F8E1-7050-3EEDB30FB1EA}.Debug32|Any CPU.Build.0 = Debug32|Any CPU
+		{5029678F-D0F6-F8E1-7050-3EEDB30FB1EA}.Debug64|Any CPU.ActiveCfg = Debug64|Any CPU
+		{5029678F-D0F6-F8E1-7050-3EEDB30FB1EA}.Debug64|Any CPU.Build.0 = Debug64|Any CPU
+		{5029678F-D0F6-F8E1-7050-3EEDB30FB1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5029678F-D0F6-F8E1-7050-3EEDB30FB1EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {52A5562E-1D15-49E5-809F-2AD25B7A333F}
 	EndGlobalSection
 EndGlobal
